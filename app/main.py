@@ -3,10 +3,10 @@ from pydantic import BaseModel, Field
 import joblib
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 import logging
 
 app = FastAPI()
+
 
 @app.get("/")
 async def read_root():
@@ -16,15 +16,16 @@ async def read_root():
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
-# Load your model and encoder 
+# Load your model and encoder
 model = joblib.load("model/model.joblib")
-encoder = joblib.load("model/encoder.joblib") 
+encoder = joblib.load("model/encoder.joblib")
 
 # Define your categorical features and label
 cat_features = [
     "workclass", "education", "marital-status", "occupation",
     "relationship", "race", "sex", "native-country"
 ]
+
 
 # Define process_data function
 def process_data(data, categorical_features, encoder):
@@ -42,22 +43,25 @@ def process_data(data, categorical_features, encoder):
 class InferenceRequest(BaseModel):
     age: int
     workclass: str
-    fnlgt: int 
+    fnlgt: int
     education: str
-    education_num: int =  Field(..., alias="education-num")  # Use alias for hyphenated field
-    marital_status: str = Field(..., alias="marital-status")  # Use alias for hyphenated field
+    # Use alias for hyphenated field
+    education_num: int = Field(..., alias="education-num")
+    marital_status: str = Field(..., alias="marital-status")
     occupation: str
     relationship: str
     race: str
     sex: str
-    hours_per_week: int = Field(..., alias="hours-per-week")  # Use alias for hyphenated field
+    hours_per_week: int = Field(..., alias="hours-per-week")
     capital_gain: int
     capital_loss: int
-    native_country: str = Field(..., alias="native-country")  # Use alias for hyphenated field
+    native_country: str = Field(..., alias="native-country")
+
 
     class Config:
         # Allow population by field name, important for alias handling
         populate_by_name = True
+
 
 @app.post("/predict")
 async def predict(request: InferenceRequest):
@@ -65,7 +69,7 @@ async def predict(request: InferenceRequest):
     input_data = {
         "age": request.age,
         "workclass": request.workclass,
-        "fnlgt":request.fnlgt,
+        "fnlgt": request.fnlgt,
         "education": request.education,
         "education-num": request.education_num,
         "marital-status": request.marital_status,
@@ -89,6 +93,8 @@ async def predict(request: InferenceRequest):
     except Exception as e:
         logging.error(f"Error during prediction: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+
+
 if __name__ == "__main__":
     
     # Create a DataFrame with similar input as test case to verify model 
