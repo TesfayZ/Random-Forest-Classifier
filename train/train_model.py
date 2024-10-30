@@ -40,7 +40,7 @@ def process_data(
         # Fit and transform the label
         y = lb.fit_transform(y)
 
-        print(f"""Training: Encoded features shape: {X.shape}, 
+        print(f"""Training: Encoded features shape: {X.shape},
            target shape: {y.shape}""")
 
     else:
@@ -50,7 +50,7 @@ def process_data(
         X = np.concatenate([X.values, X_encoded], axis=1)
         y = lb.transform(y)
 
-        print(f"""Inference: Encoded features shape: {X.shape}, 
+        print(f"""Inference: Encoded features shape: {X.shape},
            target shape: {y.shape}""")
 
     return X, y, encoder, lb
@@ -95,7 +95,7 @@ def evaluate_model(model, X, y):
 
 def compute_slice_metrics(model, X_test, y_test, feature_name, feature_index):
     """
-    Compute performance metrics for each unique value of the specified feature.    
+    Compute performance metrics for each unique value of the specified feature.
 
     Parameters:
         model: The trained model to evaluate.
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     # Output to a file
     output_file_path = "slice_output.txt"
     with open(output_file_path, "w") as f:
-        f.write(metrics_df.to_string(index=False))   
+        f.write(metrics_df.to_string(index=False))
 
     # Save the model and encoders
     save_model(model, encoder, lb, "../model/model.joblib",
