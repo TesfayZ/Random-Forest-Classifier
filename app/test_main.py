@@ -60,8 +60,9 @@ def test_predict_below_50():
     })
 
     # Print the response JSON to debug if there's an error
-    print(response.json()) 
+    print(response.json())
 
     assert response.status_code == 200
     # Check if prediciton is the label for above $50k
     assert response.json().get("prediction") == [0]
+    

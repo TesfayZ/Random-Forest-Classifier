@@ -91,8 +91,8 @@ async def predict(request: InferenceRequest):
         return {"input_data": input_data, "prediction": prediction.tolist()}
     except Exception as e:
         logging.error(f"Error during prediction: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Internal Server Error:
-                            {str(e)}")
+        raise HTTPException(status_code=500,
+                            detail=f"Internal Server Error: {str(e)}")
 
 
 if __name__ == "__main__":
