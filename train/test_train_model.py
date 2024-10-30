@@ -19,7 +19,7 @@ class TestMLFunctions(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Set up test environment, including loading sample data."""
-        cls.data_filepath = "data/census.csv"
+        cls.data_filepath = "../data/census.csv"
         logging.info("Loading data from %s", cls.data_filepath)
         cls.data = load_data(cls.data_filepath)
         cls.cat_features = [

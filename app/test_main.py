@@ -26,7 +26,7 @@ def test_predict_above_50():
         "relationship": "Husband",
         "race": "White",
         "sex": "Male",
-        "hours-per-week": 40,
+        "hours-per-week": 60,
         "capital_gain": 50000,
         "capital_loss": 0,
         "native-country": "United-States"

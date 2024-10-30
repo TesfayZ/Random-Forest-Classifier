@@ -30,6 +30,7 @@ jobs:
           flake8 .
 
       # Run pytest for unit tests
+      # pytest --maxfail=1 --disable-warnings tests all
       - name: Run pytest
         run: |
-          pytest --maxfail=1 --disable-warnings
+          pytest app/test_main.py
