@@ -48,15 +48,15 @@ def test_predict_below_50():
         "fnlgt": 223577,
         "education": "Bachelors",
         "education-num": 9,
-        "marital_status": "Married-civ-spouse",
+        "marital-status": "Married-civ-spouse",
         "occupation": "Tech-support",
         "relationship": "Husband",
         "race": "White",
         "sex": "Male",
-        "hours_per_week": 30,
+        "hours-per-week": 30,
         "capital_gain": 0,
         "capital_loss": 0,
-        "native_country": "United-States"
+        "native-country": "United-States"
     })
 
     # Print the response JSON to debug if there's an error
