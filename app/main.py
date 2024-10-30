@@ -57,7 +57,6 @@ class InferenceRequest(BaseModel):
     capital_loss: int
     native_country: str = Field(..., alias="native-country")
 
-
     class Config:
         # Allow population by field name, important for alias handling
         populate_by_name = True
@@ -92,12 +91,13 @@ async def predict(request: InferenceRequest):
         return {"input_data": input_data, "prediction": prediction.tolist()}
     except Exception as e:
         logging.error(f"Error during prediction: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal Server Error:
+                            {str(e)}")
 
 
 if __name__ == "__main__":
-    
-    # Create a DataFrame with similar input as test case to verify model 
+
+    # Create a DataFrame with similar input as test case to verify model
     test_data = pd.DataFrame([{
         "age": 45,
         "workclass": "Private",
