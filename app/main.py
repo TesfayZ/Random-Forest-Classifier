@@ -118,5 +118,4 @@ if __name__ == "__main__":
     # Process data
     X = process_data(test_data, cat_features, encoder=encoder)
     prediction = model.predict(X)
-    
     print("Test input prediction:", prediction)
