@@ -40,7 +40,7 @@ def process_data(
         # Fit and transform the label
         y = lb.fit_transform(y)
 
-        print(f"Training: Encoded features shape: {X.shape},
+        print(f"Trainig: Encoded features shape: {X.shape},
               target shape: {y.shape}")
 
     else:

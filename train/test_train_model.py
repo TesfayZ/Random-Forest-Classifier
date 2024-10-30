@@ -47,7 +47,7 @@ class TestMLFunctions(unittest.TestCase):
         X, y, encoder, lb = process_data(
             sample_data, categorical_features=self.cat_features,
             label=self.label, training=True)
-        
+
         # Check if X is a numpy array
         self.assertIsInstance(X, np.ndarray)
         logging.info("process_data returned X as ndarray")
@@ -87,7 +87,7 @@ class TestMLFunctions(unittest.TestCase):
         model = train_model(X, y)
 
         # Evaluate the model
-        accuracy, precision, recall, f1 = evaluate_model(model, X, y)        
+        accuracy, precision, recall, f1 = evaluate_model(model, X, y)
 
         # Check if each metric is a float
         self.assertIsInstance(accuracy, float)
@@ -119,22 +119,12 @@ class TestMLFunctions(unittest.TestCase):
 
         self.assertTrue(os.path.isfile(self.encoder_filepath),
                         "Encoder file was not saved")
-        logging.info("Encoder file saved: %s", self.encoder_filepath)       
+        logging.info("Encoder file saved: %s", self.encoder_filepath)
 
         self.assertTrue(os.path.isfile(self.lb_filepath),
                         "Label binarizer file was not saved")
         logging.info("Label binarizer file saved: %s", self.lb_filepath)
 
-        
-    '''    
-    @classmethod
-    def tearDownClass(cls):
-        """Clean up any files created during the tests."""
-        logging.info("Cleaning up test files")
-        for filepath in [cls.model_filepath, cls.encoder_filepath, cls.lb_filepath]:
-            if os.path.isfile(filepath):
-                os.remove(filepath)
-                logging.info("Deleted file: %s", filepath)
-    '''
+
 if __name__ == "__main__":
     unittest.main()
