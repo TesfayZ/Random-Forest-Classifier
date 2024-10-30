@@ -5,10 +5,12 @@ import os
 import logging
 from sklearn.ensemble import RandomForestClassifier
 
-from train_model import load_data, process_data, train_model, evaluate_model, save_model
+from train_model import load_data, process_data, train_model
+from train_model import evaluate_model, save_model
 
 # Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO, 
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TestMLFunctions(unittest.TestCase):
 
@@ -41,8 +43,8 @@ class TestMLFunctions(unittest.TestCase):
         logging.info("Testing process_data function")
         sample_data = self.data.sample(100, random_state=42)
         X, y, encoder, lb = process_data(
-            sample_data, categorical_features=self.cat_features, label=self.label, training=True
-        )
+            sample_data, categorical_features=self.cat_features, 
+            label=self.label, training=True)
         
         # Check if X is a numpy array
         self.assertIsInstance(X, np.ndarray)
