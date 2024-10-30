@@ -63,7 +63,7 @@ def run_sanity_check(test_dir):
                 TEST_FOR_GET_METHOD_RESPONSE_CODE = True
             if (source.find('.json') != -1) or (
                     source.find('json.loads') != -1):
-                TEST_FOR_GET_METHOD_RESPONSE_BODY =  True
+                TEST_FOR_GET_METHOD_RESPONSE_BODY = True
 
         if not TEST_FOR_GET_METHOD_RESPONSE_CODE:
             print(FAIL_COLOR+f"[{WARNING_COUNT}]")
@@ -136,7 +136,7 @@ def run_sanity_check(test_dir):
         COUNT_POST_METHOD_TEST_FOR_INFERENCE_RESULT >= 2
 
     if SANITY_TEST_PASSING:
-        print(OK_COLOR+"Your test cases look good!") 
+        print(OK_COLOR+"Your test cases look good!")
     print(WARN_COLOR+"This is a heuristic based sanity testing and cannot\
            guarantee the correctness of your code.")
     print(WARN_COLOR+"You should still check your work against the\
@@ -145,7 +145,8 @@ def run_sanity_check(test_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('test_dir', metavar='test_dir',nargs='?', 
-                        default='tests', help='Name of the directory that has test files.')
+    parser.add_argument(
+        'test_dir', metavar='test_dir', nargs='?', 
+        default='tests', help='Name of the directory that has test files.')
     args = parser.parse_args()
     run_sanity_check(args.test_dir)
