@@ -40,8 +40,8 @@ def process_data(
         # Fit and transform the label
         y = lb.fit_transform(y)
 
-        print(f"Trainig: Encoded features shape: {X.shape},
-              target shape: {y.shape}")
+        print(f"""Training: Encoded features shape: {X.shape}, 
+           target shape: {y.shape}""")
 
     else:
         # Transform data using the encoder and label binarizer
@@ -50,8 +50,8 @@ def process_data(
         X = np.concatenate([X.values, X_encoded], axis=1)
         y = lb.transform(y)
 
-        print(f"Inference: Encoded features shape: {X.shape},
-              target shape: {y.shape}")
+        print(f"""Inference: Encoded features shape: {X.shape}, 
+           target shape: {y.shape}""")
 
     return X, y, encoder, lb
 

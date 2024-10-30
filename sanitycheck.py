@@ -146,7 +146,7 @@ def run_sanity_check(test_dir):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'test_dir', metavar='test_dir', nargs='?', 
+        'test_dir', metavar='test_dir', nargs='?',
         default='tests', help='Name of the directory that has test files.')
     args = parser.parse_args()
     run_sanity_check(args.test_dir)
