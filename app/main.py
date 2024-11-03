@@ -4,7 +4,6 @@ import joblib
 import pandas as pd
 import numpy as np
 import logging
-import os
 app = FastAPI()
 
 
@@ -94,7 +93,7 @@ async def predict(request: InferenceRequest):
         # Convert predictions to original labels
         prediction_labels = lb.inverse_transform(prediction)
 
-        return {"input_data": input_data, "prediction": prediction_labels.tolist()}
+        return {"input": input_data, "prediction": prediction_labels.tolist()}
 
     except Exception as e:
         logging.error(f"Error during prediction: {str(e)}")
@@ -102,8 +101,8 @@ async def predict(request: InferenceRequest):
                             detail=f"Internal Server Error: {str(e)}")
 
 
-if __name__ == "__main__":
-    
+if __name__ == "__main__":    
+
     # Create a DataFrame with similar input as test case to verify model
     test_data = pd.DataFrame([{
         "age": 40,
@@ -121,6 +120,7 @@ if __name__ == "__main__":
         "hours-per-week": 40,
         "native-country": "United-States"
     }])
+
     # Process data
     X = process_data(test_data, cat_features, encoder=encoder)
     predicted = model.predict(X)
