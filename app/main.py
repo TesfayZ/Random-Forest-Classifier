@@ -101,7 +101,7 @@ async def predict(request: InferenceRequest):
                             detail=f"Internal Server Error: {str(e)}")
 
 
-if __name__ == "__main__":    
+if __name__ == "__main__":
 
     # Create a DataFrame with similar input as test case to verify model
     test_data = pd.DataFrame([{

@@ -9,17 +9,17 @@ This is a Random-Forest-based classifier model trained to predict whether an ind
 The model can be used by organizations and researchers to analyze income disparity, understand demographic trends, and make data-driven decisions in areas such as social services, employment, and policy-making. However, tt is essential to note that the model is intended for exploratory analysis and should not be used as the sole basis for high-stakes decisions.
 
 ## Training Data
-The model was trained on a publicly available dataset containing census information from the U.S. population, which includes demographic attributes such as age, education, work class, occupation, and more. The training dataset consists of 22,792 instances, with 14 features.
+The model was trained on a publicly available dataset containing census information from the U.S. population, which includes demographic attributes such as age, education, work class, occupation, and more. The training dataset consists of 26,026 instances, with 14 features.
 
 ## Evaluation Data
-The evaluation of the model was conducted on a separate test set of 9,769 instances, drawn from the same dataset. The evauation data is taken from 30% of the original data. This resulted in better prediction than evaluating with 20%, is because the data has more salaries belew $50K than above $50k. This ensures that the model's performance metrics are indicative of its generalization ability to unseen data.
+The evaluation of the model was conducted on a separate test set of 6,508 instances, drawn from the same dataset. The evauation data is taken from 20% of the original data. The random forest classifier is trained with class_weight='balanced' to consider the imbalance between salaries belew $50K  and above $50k, which is 3:1. This ensures that the model's performance metrics are indicative of its generalization ability to unseen data.
 
 ## Metrics
 The model was evaluated using the following metrics:
-Accuracy: 0.8537
-Precision: 0.7220
-Recall: 0.6219
-F1 Score: 0.6682
+Accuracy: 0.8599
+Precision: 0.7631
+Recall: 0.6251
+F1 Score: 0.6872
 These metrics indicate that the model performs well, particularly in terms of accuracy and precision, while still maintaining a balanced recall score.
 
 ## Ethical Considerations
@@ -29,4 +29,4 @@ When using this model, it is crucial to consider the ethical implications, parti
 Data Quality: Ensure that the input data used for prediction is clean and well-structured, as data quality directly affects model performance.
 Bias and Fairness: Continuously monitor the model's predictions for any biases or unfairness towards certain demographic groups. Adjustments and retraining may be necessary to mitigate these issues.
 Model Updates: Periodically retrain the model with updated census data to capture changing socioeconomic conditions.
-Data imbalance: when traning with new data, consider traning with varios ratio of spliting the data to traning and evaluation data sets as the salary classification of the data may not be balanced. Alternatively, try try traning with K-fold split. 
+Data imbalance: When traning with new data, consider traning with varios ratio of spliting the data to training and evaluation data sets as the salary classification of the data may not be balanced. Alternatively, try try traning with K-fold split. 
