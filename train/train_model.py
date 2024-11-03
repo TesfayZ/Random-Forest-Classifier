@@ -6,6 +6,7 @@ import os
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import accuracy_score, precision_score
 from sklearn.metrics import recall_score, f1_score
 
@@ -18,6 +19,11 @@ def load_data(filepath):
     # Remove whitespace from columns
     data.columns = data.columns.str.strip()
     return data
+
+
+def Clean_data(raw_data):
+    data_cleaned = raw_data.drop_duplicates()
+    return data_cleaned
 
 
 def process_data(
@@ -39,7 +45,8 @@ def process_data(
 
         # Fit and transform the label
         y = lb.fit_transform(y)
-
+        print("Label encoding:",
+              dict(zip(lb.classes_, lb.transform(lb.classes_))))
         print(f"""Training: Encoded features shape: {X.shape},
            target shape: {y.shape}""")
 
@@ -58,9 +65,9 @@ def process_data(
 
 def train_model(X, y):
     """Train a random forest classifier on the data."""
-    model = RandomForestClassifier(random_state=42)
+    model = RandomForestClassifier(n_estimators=100, random_state=42, class_weight='balanced') 
     model.fit(X, y)
-    return model
+    return model 
 
 
 def save_model(model, encoder, lb,
@@ -148,8 +155,11 @@ if __name__ == "__main__":
     data_filepath = os.path.join("..", "data", "census.csv")
 
     # Load the data
-    data = load_data(data_filepath)
+    raw_data = load_data(data_filepath)
     # print("columns:", data.columns)
+
+    #clean data
+    data = Clean_data(raw_data)
 
     # Define categorical features and label column
     cat_features = [
@@ -159,7 +169,7 @@ if __name__ == "__main__":
     label = "salary"
 
     # Split the data into train and test sets
-    train, test = train_test_split(data, test_size=0.30, random_state=42)
+    train, test = train_test_split(data, test_size=0.2, random_state=42)
 
     # Process the training data
     X_train, y_train, encoder, lb = process_data(

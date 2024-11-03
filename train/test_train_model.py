@@ -29,9 +29,9 @@ class TestMLFunctions(unittest.TestCase):
         cls.label = "salary"
 
         # Define paths for the model, encoder, and label binarizer
-        cls.model_filepath = "../model/model.joblib"
-        cls.encoder_filepath = "../model/encoder.joblib"
-        cls.lb_filepath = "../model/label_binarizer.joblib"
+        cls.model_filepath = "../model/test_model.joblib"
+        cls.encoder_filepath = "../model/test_encoder.joblib"
+        cls.lb_filepath = "../model/test_label_binarizer.joblib"
 
     def test_load_data(self):
         """Test if load_data returns a DataFrame."""
@@ -64,7 +64,7 @@ class TestMLFunctions(unittest.TestCase):
     def test_train_model(self):
         """Test if train_model returns a model instance."""
         logging.info("Testing train_model function")
-        sample_data = self.data.sample(100, random_state=42)
+        sample_data = self.data.sample(60)
         X, y, _, _ = process_data(
             sample_data, categorical_features=self.cat_features,
             label=self.label, training=True
