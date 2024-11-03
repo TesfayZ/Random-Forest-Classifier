@@ -26,9 +26,9 @@ def test_predict_above_50():
         "relationship": "Husband",
         "race": "White",
         "sex": "Male",
-        "hours-per-week": 60,
         "capital_gain": 50000,
         "capital_loss": 0,
+        "hours-per-week": 40,
         "native-country": "United-States"
     })
 
@@ -37,7 +37,7 @@ def test_predict_above_50():
 
     assert response.status_code == 200
     # Check if prediciton is the label for above $50k
-    assert response.json().get("prediction") == [1]
+    assert response.json().get("prediction") == [' >50K']
 
 
 def test_predict_below_50():
@@ -53,9 +53,9 @@ def test_predict_below_50():
         "relationship": "Husband",
         "race": "White",
         "sex": "Male",
-        "hours-per-week": 30,
         "capital_gain": 0,
         "capital_loss": 0,
+        "hours-per-week": 30,
         "native-country": "United-States"
     })
 
@@ -64,4 +64,4 @@ def test_predict_below_50():
 
     assert response.status_code == 200
     # Check if prediciton is the label for above $50k
-    assert response.json().get("prediction") == [0]
+    assert response.json().get("prediction") == [' <=50K']

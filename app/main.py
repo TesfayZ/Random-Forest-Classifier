@@ -4,7 +4,7 @@ import joblib
 import pandas as pd
 import numpy as np
 import logging
-
+import os
 app = FastAPI()
 
 
@@ -19,6 +19,8 @@ logging.basicConfig(level=logging.INFO)
 # Load your model and encoder
 model = joblib.load("model/model.joblib")
 encoder = joblib.load("model/encoder.joblib")
+lb = joblib.load("model/label_binarizer.joblib")
+print(f"Label Encoder Classes: {lb.classes_}")
 
 # Define your categorical features and label
 cat_features = [
@@ -52,9 +54,9 @@ class InferenceRequest(BaseModel):
     relationship: str
     race: str
     sex: str
-    hours_per_week: int = Field(..., alias="hours-per-week")
     capital_gain: int
     capital_loss: int
+    hours_per_week: int = Field(..., alias="hours-per-week")
     native_country: str = Field(..., alias="native-country")
 
     class Config:
@@ -76,10 +78,10 @@ async def predict(request: InferenceRequest):
         "relationship": request.relationship,
         "race": request.race,
         "sex": request.sex,
-        "hours-per-week": request.hours_per_week,
         "capital_gain": request.capital_gain,
         "capital_loss": request.capital_loss,
-        "native-country": request.native_country,
+        "hours-per-week": request.hours_per_week,
+        "native-country": request.native_country
     }
 
     try:
@@ -88,7 +90,12 @@ async def predict(request: InferenceRequest):
         # Process data
         X = process_data(df_input, cat_features, encoder=encoder)
         prediction = model.predict(X)
-        return {"input_data": input_data, "prediction": prediction.tolist()}
+
+        # Convert predictions to original labels
+        prediction_labels = lb.inverse_transform(prediction)
+
+        return {"input_data": input_data, "prediction": prediction_labels.tolist()}
+
     except Exception as e:
         logging.error(f"Error during prediction: {str(e)}")
         raise HTTPException(status_code=500,
@@ -96,26 +103,26 @@ async def predict(request: InferenceRequest):
 
 
 if __name__ == "__main__":
-
+    
     # Create a DataFrame with similar input as test case to verify model
     test_data = pd.DataFrame([{
-        "age": 45,
+        "age": 40,
         "workclass": "Private",
-        "fnlgt": 214567,
-        "education": "Doctorate",
-        "education-num": 16,
+        "fnlgt": 154374,
+        "education": "HS-grad",
+        "education-num": 9,
         "marital-status": "Married-civ-spouse",
-        "occupation": "Exec-managerial",
+        "occupation": "Machine-op-inspct",
         "relationship": "Husband",
         "race": "White",
         "sex": "Male",
-        "hours-per-week": 40,
-        "capital_gain": 50000,
+        "capital_gain": 15024,
         "capital_loss": 0,
+        "hours-per-week": 40,
         "native-country": "United-States"
     }])
-
     # Process data
     X = process_data(test_data, cat_features, encoder=encoder)
-    prediction = model.predict(X)
-    print("Test input prediction:", prediction)
+    predicted = model.predict(X)
+    prediction_labels = lb.inverse_transform(predicted)
+    print("Test input predicted:", prediction_labels)
