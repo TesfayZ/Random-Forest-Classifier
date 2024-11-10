@@ -3,7 +3,7 @@ import requests
 # URL of the deployed model API
 url = "https://random-forest-classifier-5a80c73c3027.herokuapp.com/predict"
 
-# Input data 
+# Input data
 data = {
     "age": 40,
     "workclass": "Private",
