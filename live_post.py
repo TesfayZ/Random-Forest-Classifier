@@ -21,11 +21,18 @@ data = {
     "native-country": "United-States"
 }
 
-# Send the POST request
+# Send POST request to the API
 response = requests.post(url, json=data)
 
-# Check the status code and print the response
+# Check if the status code indicates success
 if response.status_code == 200:
-    print("Prediction received:", response.json())
+    result = response.json()  
+    prediction = result['prediction'][0]  
+    print(f"Prediction received: {prediction}")
 else:
+    # Print the error status code and message
     print(f"Error: {response.status_code}, {response.text}")
+
+# Display both result and status code
+print("Status Code:", response.status_code)
+print("Response Content:", response.json())
