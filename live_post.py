@@ -26,8 +26,8 @@ response = requests.post(url, json=data)
 
 # Check if the status code indicates success
 if response.status_code == 200:
-    result = response.json()  
-    prediction = result['prediction'][0]  
+    result = response.json()
+    prediction = result['prediction'][0]
     print(f"Prediction received: {prediction}")
 else:
     # Print the error status code and message
