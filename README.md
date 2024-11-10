@@ -1,3 +1,16 @@
+
+Course project for the danodegree in machine learing DevOps engineer at Udacity
+This project deploys random forest model that is trained to classify individuals as above $50k and below to heroku using FastAPI
+
+
+link to to code: https://github.com/TesfayZ/Random-Forest-Classifier
+
+
+The description below is taken from the readme of the project template as is but I didn't use Amazon S3 as the size of the model is small enough to be reposited with the code in github.
+
+The results are in the screenshots folder.
+========================================
+
 Working in a command line environment is recommended for ease of use with git and dvc. If on Windows, WSL1 or 2 is recommended.
 
 # Environment Set up
